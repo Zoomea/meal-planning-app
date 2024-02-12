@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './layout';
+import Calendar from './calendar-view';
+import Recipe from './recipe-list';
+import ShoppingList from './shopping-list';
+import NoPage from './no-page';
 import './App.css'
 
 function App() {
@@ -30,7 +35,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p> */
     /* </div> */}
-    <div>
+    {/* <div>
       <span id="logo-img">logo</span>
       <span className="navigation-bar">
         <span>Recipe book</span>
@@ -40,7 +45,17 @@ function App() {
           <Link to="/new-route">New Route</Link>
         </li>
       </span>
-    </div>
+    </div> */}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={< Recipe />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="shoppingList" element={<ShoppingList />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </>
   )
 }
