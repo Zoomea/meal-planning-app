@@ -5,7 +5,9 @@ import Calendar from './calendar-view';
 import Recipe from './recipe-list';
 import ShoppingList from './shopping-list';
 import NoPage from './no-page';
-import './App.css'
+import './index.css';
+import './App.css';
+
 
 function App() {
   // const [count, setCount] = useState(0)
