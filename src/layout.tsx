@@ -33,7 +33,9 @@ const Layout = () => {
                     </ul>
                 </nav>
             </div>
-            <Outlet />
+            <div className="main-content">
+                <Outlet />
+            </div>
         </>
     )
 };

@@ -55,7 +55,7 @@
 
 .navigation-bar {
   display: flex;
-  padding: 20px;
+  padding: 10px 0;
   background: #497042;
   overflow: hidden;
   position: fixed;
@@ -92,4 +92,10 @@
   text-decoration: none;
   color: #fff;
   align-items: center;
+}
+
+.main-content {
+  position: fixed;
+  top: 200px;
+  left: 100px;
 }
