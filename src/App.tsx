@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './layout';
 import Calendar from './calendar-view';
-import Recipe from './recipe-list';
+import Recipes from './recipe-list';
 import ShoppingList from './shopping-list';
 import NoPage from './no-page';
 import './index.css';
@@ -49,7 +49,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={< Recipe />} />
+          <Route index element={< Recipes />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="shoppingList" element={<ShoppingList />} />
           <Route path="*" element={<NoPage />} />

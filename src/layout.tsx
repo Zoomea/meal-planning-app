@@ -9,7 +9,7 @@ const Layout = () => {
     return (
         <>
             <div className="navigation-bar bg-green-500 flex">
-                <nav className="w-3/4 flex justify-between mx-auto">
+                <nav className="w-3/4 flex justify-between mx-auto items-center">
                     <img id="site-logo" src={siteLogo} alt="site logo" />
                     <ul className="flex">
                         <li>
