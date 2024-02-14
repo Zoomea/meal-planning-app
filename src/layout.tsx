@@ -8,10 +8,10 @@ import "./App.css";
 const Layout = () => {
     return (
         <>
-            <div className="navigation-bar">
-                <img id="site-logo" src={siteLogo} alt="site logo" />
-                <nav>
-                    <ul>
+            <div className="navigation-bar bg-green-500 flex">
+                <nav className="w-3/4 flex justify-between mx-auto">
+                    <img id="site-logo" src={siteLogo} alt="site logo" />
+                    <ul className="flex">
                         <li>
                             <a href="/">
                                 <img src={recipeLogo} alt="recipe logo" />
