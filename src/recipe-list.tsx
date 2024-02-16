@@ -22,6 +22,11 @@ const Recipes = () => {
             <Recipe />
             <Recipe />
             <Recipe />
+            <Recipe />
+            <Recipe />
+            <Recipe />
+            <Recipe />
+            <Recipe />
         </div>
         
     </div>

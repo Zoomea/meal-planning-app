@@ -1,4 +1,5 @@
-import { Outlet, Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import siteLogo from './assets/siteLogo.png';
 import recipeLogo from './assets/recipe.png';
 import calendarLogo from './assets/calendar.png';
@@ -6,6 +7,18 @@ import shoppingLogo from './assets/shopping.png';
 import "./App.css";
 
 const Layout = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        // Change the body background color based on the route
+        document.body.style.backgroundColor = location.pathname === '/calendar' ? 'white' : '#EAEFC5';
+    
+        // Clean up the effect when the component unmounts
+        return () => {
+          document.body.style.backgroundColor = '#EAEFC5'; // Reset to default background color or remove this line if not needed
+        };
+      }, [location.pathname]);
+
     return (
         <>
             <div className="navigation-bar bg-green-500 flex">
