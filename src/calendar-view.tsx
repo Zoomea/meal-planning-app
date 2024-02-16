@@ -42,10 +42,10 @@ const Calendar = () => {
     }
     console.log(datesOfWeekWithSuffix);
 
-    return <div className="items-center">
+    return <div className="">
         <div className="flex text-green-500">
             <img src={leftArrow} alt="left arrow mr-2" style={{fill: "red"}} />
-            <div className="items-center">{formattedMonth}</div>
+            <div className="flex items-center">{formattedMonth}</div>
             <ul className="flex justify-between">{datesOfWeekWithSuffix.map((date, index) => <li key={index} className="border rounded-xl border-green-500 mx-2 px-2">{date}</li>)}</ul>
             <img src={rightArrow} alt="left arrow" />
         </div>
