@@ -41,7 +41,6 @@ const Calendar = () => {
       const dayWithSuffix = getDayWithSuffix(date.getDate());
       datesOfWeekWithSuffix.push(date.toLocaleDateString('en-US', { weekday: 'long' }) + ' ' + dayWithSuffix);
     }
-    console.log(datesOfWeekWithSuffix);
 
     return <div className="">
         <div className="flex text-green-500 mb-4">
