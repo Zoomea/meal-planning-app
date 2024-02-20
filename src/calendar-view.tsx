@@ -49,7 +49,7 @@ const Calendar = () => {
             <ul className="flex justify-between">{datesOfWeekWithSuffix.map((date, index) => <li key={index} className="border rounded-xl border-green-500 mx-2 px-2">{date}</li>)}</ul>
             <img src={rightArrow} alt="left arrow" />
         </div>
-        <div className="flex bg-green-100 h-64 items-center overflow-y-auto mb-4">
+        <div className="flex bg-green-100 h-64 items-center overflow-y-auto mt-4">
             <div className="ml-48 mr-12">
                 <div className="text-2xl text-green-500 w-24 mb-4">Breakfast</div>
                 <button className="bg-green-500 rounded-full px-4 text-white">+ Add</button>
@@ -63,7 +63,7 @@ const Calendar = () => {
                 </div>
             </div>
         </div>
-        <div className="flex bg-green-100 h-64 items-center overflow-y-auto mb-4">
+        <div className="flex bg-green-100 h-64 items-center overflow-y-auto mt-4">
             <div className="ml-48 mr-12">
                 <div className="text-2xl text-green-500 mb-4 w-24">Lunch</div>
                 <button className="bg-green-500 rounded-full px-4 text-white">+ Add</button>
@@ -77,7 +77,7 @@ const Calendar = () => {
                 </div>
             </div>
         </div>
-        <div className="flex bg-green-100 h-64 items-center overflow-y-auto mb-4">
+        <div className="flex bg-green-100 h-64 items-center overflow-y-auto mt-4">
             <div className="ml-48 mr-12">
                 <div className="text-2xl text-green-500 mb-4 w-24">Dinner</div>
                 <button className="bg-green-500 rounded-full px-4 text-white">+ Add</button>
