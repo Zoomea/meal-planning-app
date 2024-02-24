@@ -33,7 +33,7 @@ const NewRecipeModal = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="description">Title:</label>
+                    <label htmlFor="description">Description:</label>
                     <input
                         type="text"
                         id="description"
@@ -42,7 +42,7 @@ const NewRecipeModal = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="ingredients">Title:</label>
+                    <label htmlFor="ingredients">Ingredients:</label>
                     <input
                         type="text"
                         id="ingredients"
