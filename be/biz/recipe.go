@@ -1,38 +1,33 @@
 package biz
 
-import "context"
+import (
+	"context"
 
-type Conf struct {
-	dbConn RecipeRepo
-}
+	"github.com/Zoomea/meal-planning-app/db"
+)
 
 type Recipe struct {
-	ID   int64  `json:"id"`
-	Name string `json:"recipe"`
+	ID           int64         `json:"id"`
+	Name         string        `json:"name"`
+	Description  string        `json:"description"`
+	PrepTimeMins int64         `json:"prepTimeMins"`
+	CookTimeMins int64         `json:"cookTimeMins"`
+	Difficulty   int64         `json:"difficulty"`
+	Ingredients  []IngredQuant `json:"ingredients"`
 }
 
-// Note that we expect the same Recipe struct from the DB that we will later
-// pass to the user which is a leaky abstraction.
-// Change it later if it causes problems
-type RecipeRepo interface {
-	Get(context.Context, int64) (Recipe, error)
-	GetAll(context.Context) ([]Recipe, error)
-	Add(context.Context, Recipe) (int64, error)
-	Delete(context.Context, int64) error
+func GetRecipes(ctx context.Context, conn db.Crudler[Recipe], ids []int64) ([]Recipe, error) {
+	return conn.Read(ctx, ids)
 }
 
-func GetRecipe(ctx context.Context, conf Conf, id int64) (Recipe, error) {
-	return conf.dbConn.Get(ctx, id)
+func ListRecipes(ctx context.Context, conn db.Crudler[Recipe]) ([]Recipe, error) {
+	return conn.List(ctx)
 }
 
-func GetRecipes(ctx context.Context, conf Conf) ([]Recipe, error) {
-	return conf.dbConn.GetAll(ctx)
+func AddRecipe(ctx context.Context, conn db.Crudler[Recipe], recipe Recipe) (int64, error) {
+	return conn.Create(ctx, recipe)
 }
 
-func AddRecipe(ctx context.Context, conf Conf, recipe Recipe) (int64, error) {
-	return conf.dbConn.Add(ctx, recipe)
-}
-
-func DeleteRecipe(ctx context.Context, conf Conf, id int64) error {
-	return conf.dbConn.Delete(ctx, id)
+func DeleteRecipe(ctx context.Context, conn db.Crudler[Recipe], id int64) error {
+	return conn.Delete(ctx, id)
 }
