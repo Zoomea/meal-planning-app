@@ -16,8 +16,8 @@ type repo[T any] struct {
 	Items map[int64]T `json:"items"`
 }
 
-func New[T any]() repo[T] {
-	return repo[T]{
+func New[T any]() *repo[T] {
+	return &repo[T]{
 		ID:    0,
 		Items: make(map[int64]T),
 	}
@@ -43,15 +43,15 @@ func (r *repo[T]) Create(ctx context.Context, v T) (int64, error) {
 	return r.ID, nil
 }
 
+// Read doesn't return an error if the item isn't found
 func (r *repo[T]) Read(ctx context.Context, ids []int64) ([]T, error) {
-	items := make([]T, len(ids))
+	items := make([]T, 0, len(ids))
 
-	for i, id := range ids {
+	for _, id := range ids {
 		v, ok := r.Items[id]
-		if !ok {
-			return nil, ErrNotFound
+		if ok {
+			items = append(items, v)
 		}
-		items[i] = v
 	}
 
 	return items, nil
