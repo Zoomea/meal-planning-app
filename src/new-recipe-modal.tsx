@@ -56,7 +56,7 @@ const NewRecipeModal = () => {
             </div>
             <div>
                 <div className="mb-2">Picture:</div>
-                <div className="rounded-md border border-gray-300 text-green-500 bg-white py-12 px-36 transition-shadow hover:shadow-md hover:text-lg">Upload</div>
+                <div className="rounded-md border border-gray-300 text-green-500 bg-white py-12 px-36 transition-shadow hover:shadow-md hover:text-lg transition">Upload</div>
             </div>
         </div>
         <div className="flex mb-2">
