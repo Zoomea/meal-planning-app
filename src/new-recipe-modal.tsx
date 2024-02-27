@@ -30,7 +30,7 @@ const NewRecipeModal = () => {
                         id="title"
                         value={titleValue}
                         onChange={handleTitleChange}
-                        className="w-48 rounded-md border border-gray-300 px-2 py-1"
+                        className="w-48 rounded-md border border-gray-300 p-2"
                     />
                 </div>
                 <div className="mb-2">
@@ -40,7 +40,7 @@ const NewRecipeModal = () => {
                         id="description"
                         value={descriptionValue}
                         onChange={handleDescriptionChange}
-                        className="rounded-md border border-gray-300 p-2"
+                        className="h-48 w-96 rounded-md border border-gray-300 p-2"
                     />
                 </div>
                 <div className="mb-2">
@@ -50,7 +50,7 @@ const NewRecipeModal = () => {
                         id="ingredients"
                         value={ingredientsValue}
                         onChange={handleIngredientsChange}
-                        className="rounded-md border border-gray-300 p-2"
+                        className="h-36 w-96 rounded-md border border-gray-300 p-2"
                     />
                 </div>
             </div>
@@ -62,7 +62,7 @@ const NewRecipeModal = () => {
                 <input
                     type="text"
                     id="preparation-h"
-                    className="rounded-md border border-gray-300 p-2"
+                    className="w-12 rounded-md border border-gray-300 p-2"
                 // value={preparationHValue}
                 // onChange={handlePreparationHChange}
                 />
@@ -70,7 +70,7 @@ const NewRecipeModal = () => {
                 <input
                     type="text"
                     id="preparation-h"
-                    className="rounded-md border border-gray-300 p-2"
+                    className="w-12 rounded-md border border-gray-300 p-2"
                 // value={preparationHValue}
                 // onChange={handlePreparationMChange}
                 />
@@ -81,7 +81,7 @@ const NewRecipeModal = () => {
                 <input
                     type="text"
                     id="preparation-h"
-                    className="rounded-md border border-gray-300 p-2"
+                    className="w-12 rounded-md border border-gray-300 p-2"
                 // value={cookingHValue}
                 // onChange={handleCookingHChange}
                 />
@@ -89,7 +89,7 @@ const NewRecipeModal = () => {
                 <input
                     type="text"
                     id="preparation-h"
-                    className="rounded-md border border-gray-300 p-2"
+                    className="w-12 rounded-md border border-gray-300 p-2"
                 // value={cookingMValue}
                 // onChange={handleCookingMChange}
                 />
