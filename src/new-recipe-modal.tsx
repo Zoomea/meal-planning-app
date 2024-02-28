@@ -23,8 +23,8 @@ const NewRecipeModal = () => {
         <div className="text-green-500 text-xl mb-4">New recipe</div>
         <div className="flex">
             <div className="w-3/5">
-                <div className="mb-2">
-                    <label htmlFor="title">Title:</label>
+                <div className="flex mb-2">
+                    <label htmlFor="title" className="w-36">Title:</label>
                     <input
                         type="text"
                         id="title"
@@ -33,8 +33,8 @@ const NewRecipeModal = () => {
                         className="w-48 rounded-md border border-gray-300 p-2"
                     />
                 </div>
-                <div className="mb-2">
-                    <label htmlFor="description">Description:</label>
+                <div className="flex mb-2">
+                    <label htmlFor="description" className="w-36">Description:</label>
                     <input
                         type="text"
                         id="description"
@@ -43,8 +43,8 @@ const NewRecipeModal = () => {
                         className="h-48 w-96 rounded-md border border-gray-300 p-2"
                     />
                 </div>
-                <div className="mb-2">
-                    <label htmlFor="ingredients">Ingredients:</label>
+                <div className="flex mb-2">
+                    <label htmlFor="ingredients" className="w-36">Ingredients:</label>
                     <input
                         type="text"
                         id="ingredients"
@@ -60,8 +60,8 @@ const NewRecipeModal = () => {
             </div>
         </div>
         <div className="flex mb-2">
-            <div className="mr-8">
-                <label htmlFor="ingredients">Preparation time:</label>
+            <div className="flex mr-8 items-center">
+                <label htmlFor="ingredients" className="w-36">Preparation time:</label>
                 <input
                     type="text"
                     id="preparation-h"
@@ -100,7 +100,7 @@ const NewRecipeModal = () => {
             </div>
         </div>
         <div className="flex">
-            Difficulty:
+            <div className="w-36">Difficulty:</div>
             {Array.from({ length: 5 }, (value, index) => (
                 <img key={index} src={StarImg} alt="star" />
             ))}
