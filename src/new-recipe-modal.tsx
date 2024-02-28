@@ -101,9 +101,11 @@ const NewRecipeModal = () => {
         </div>
         <div className="flex">
             Difficulty:
-            <img src={StarImg} alt="star" />
+            {Array.from({ length: 5 }, (value, index) => (
+                <img key={index} src={StarImg} alt="star" />
+            ))}
         </div>
     </div>
-}
+}    
 
 export default NewRecipeModal;
