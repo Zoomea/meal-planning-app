@@ -23,6 +23,7 @@ const DateRangePicker = () => {
           startDate={startDate}
           endDate={endDate}
           placeholderText="From Date"
+          className="mr-4"
         />
         <DatePicker
           selected={endDate}
