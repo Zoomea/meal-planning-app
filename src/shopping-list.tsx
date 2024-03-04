@@ -7,7 +7,9 @@ const ShoppingList = () => {
             <DateRangePicker />
         </div>
         <div className="border border-green-500 rounded mx-8">shopping list</div>
-        <NewRecipeModal />
+        <div className="mx-8">
+            <NewRecipeModal />
+        </div>
     </div>;
   };
   
