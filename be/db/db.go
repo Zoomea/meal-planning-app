@@ -30,5 +30,5 @@ type Date struct {
 
 type ScheduleStore interface {
 	List(ctx context.Context, start, end Date) ([]Schedule, error)
-	UpdateSchedule(context.Context, Date, Schedule) error
+	UpsertSchedule(context.Context, Schedule) error
 }

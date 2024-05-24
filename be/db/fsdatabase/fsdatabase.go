@@ -16,6 +16,8 @@ type repo[T any] struct {
 	Items map[int64]T `json:"items"`
 }
 
+// Returns a generic repository handler that implements the Crudler
+// interface for any type.
 func New[T any]() *repo[T] {
 	return &repo[T]{
 		ID:    0,

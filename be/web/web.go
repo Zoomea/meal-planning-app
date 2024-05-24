@@ -6,7 +6,6 @@ import (
 	"net"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 
 	"github.com/Zoomea/meal-planning-app/biz"
@@ -17,7 +16,8 @@ import (
 type httpHandler func(http.ResponseWriter, *http.Request)
 
 type State struct {
-	recipeDB db.Crudler[biz.Recipe]
+	recipeDB   db.Crudler[biz.Recipe]
+	scheduleDB db.ScheduleStore
 }
 
 func Serve(dir string, port int, ready chan<- struct{}) error {
@@ -44,6 +44,9 @@ func Serve(dir string, port int, ready chan<- struct{}) error {
 	http.HandleFunc("POST /api/recipe/", wrap(addRecipe))
 	http.HandleFunc("DELETE /api/recipe/{id}", wrap(deleteRecipe))
 
+	http.HandleFunc("GET /api/schedule/", wrap(getManySchedules))
+	http.HandleFunc("POST /api/schedule/", wrap(addSchedule))
+
 	fmt.Printf("Serving directory '%s' at http://localhost:%d\n", dir, port)
 
 	l, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
@@ -59,69 +62,9 @@ func Serve(dir string, port int, ready chan<- struct{}) error {
 
 func initState() State {
 	return State{
-		recipeDB: fsdatabase.New[biz.Recipe](),
+		recipeDB:   fsdatabase.New[biz.Recipe](),
+		scheduleDB: fsdatabase.NewScheduleDB(),
 	}
-}
-
-func getManyRecipes(req *http.Request, state State) (any, int, error) {
-	ctx := req.Context()
-
-	recipes, err := biz.ListRecipes(ctx, state.recipeDB)
-	if err != nil {
-		return nil, 500, err
-	}
-	return recipes, 200, nil
-}
-
-func getRecipe(req *http.Request, state State) (any, int, error) {
-	idStr := req.PathValue("id")
-	id, err := strconv.ParseInt(idStr, 10, 64)
-	if err != nil {
-		return nil, 400, fmt.Errorf("Could not parse '%s' as integer", idStr)
-	}
-
-	ctx := req.Context()
-
-	recipes, err := biz.GetRecipes(ctx, state.recipeDB, []int64{id})
-	if err != nil {
-		return nil, 500, err
-	}
-	if len(recipes) == 0 {
-		return nil, 404, fmt.Errorf("no recipe with id %d", id)
-	}
-
-	return recipes[0], 200, nil
-}
-
-func addRecipe(req *http.Request, state State) (any, int, error) {
-	ctx := req.Context()
-
-	var rec biz.Recipe
-	if err := json.NewDecoder(req.Body).Decode(&rec); err != nil {
-		return nil, 400, err
-	}
-
-	id, err := biz.AddRecipe(ctx, state.recipeDB, rec)
-	if err != nil {
-		return nil, 500, err
-	}
-	return id, 200, nil
-}
-
-func deleteRecipe(req *http.Request, state State) (any, int, error) {
-	ctx := req.Context()
-
-	idStr := req.PathValue("id")
-	id, err := strconv.ParseInt(idStr, 10, 64)
-	if err != nil {
-		return nil, 400, fmt.Errorf("Could not parse '%s' as integer", idStr)
-	}
-
-	err = biz.DeleteRecipe(ctx, state.recipeDB, id)
-	if err != nil {
-		return nil, 500, err
-	}
-	return nil, 200, nil
 }
 
 func log(f httpHandler) httpHandler {
@@ -131,14 +74,10 @@ func log(f httpHandler) httpHandler {
 	}
 }
 
-type Response struct {
-	Data  any    `json:"data"`
-	Error string `json:"error"`
-}
 
 func sendJSON(f func(*http.Request, State) (any, int, error), state State) httpHandler {
 	return func(w http.ResponseWriter, req *http.Request) {
-		var res Response
+		var res Response[any]
 		data, code, err := f(req, state)
 		if err != nil {
 			res.Error = err.Error()

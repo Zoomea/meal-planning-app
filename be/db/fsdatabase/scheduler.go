@@ -6,15 +6,22 @@ import (
 	"github.com/Zoomea/meal-planning-app/db"
 )
 
-type ScheduleDB struct {
-	scheds map[db.Date]db.Schedule
+type scheduleDB struct {
+	scheds map[dateWithTime]db.Schedule
 }
 
-func NewScheduleDB() ScheduleDB {
-	return ScheduleDB{make(map[db.Date]db.Schedule)}
+// For instance, this could be 2024-04-02 and "breakfast"
+type dateWithTime struct {
+	Date db.Date
+	Time string
 }
 
-func (s *ScheduleDB) List(ctx context.Context, start, end db.Date) ([]db.Schedule, error) {
+// Returns a database handler than implements the ScheduleStore interface
+func NewScheduleDB() *scheduleDB {
+	return &scheduleDB{make(map[dateWithTime]db.Schedule)}
+}
+
+func (s *scheduleDB) List(ctx context.Context, start, end db.Date) ([]db.Schedule, error) {
 	resScheds := make([]db.Schedule, 0)
 
 	for _, sched := range s.scheds {
@@ -26,8 +33,9 @@ func (s *ScheduleDB) List(ctx context.Context, start, end db.Date) ([]db.Schedul
 	return resScheds, nil
 }
 
-func (s *ScheduleDB) UpdateSchedule(ctx context.Context, date db.Date, sched db.Schedule) error {
-	s.scheds[date] = sched
+func (s *scheduleDB) UpsertSchedule(ctx context.Context, sched db.Schedule) error {
+	dt := dateWithTime{sched.Date, sched.Type}
+	s.scheds[dt] = sched
 	return nil
 }
 

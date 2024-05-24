@@ -9,16 +9,16 @@ import (
 
 // Schedule contains pointers to recipes
 type Schedule struct {
-	Date    db.Date
-	Type    string
-	Recipes []BasicRecipeInfo
+	Date    db.Date           `json:"date"`
+	Type    string            `json:"type"`
+	Recipes []BasicRecipeInfo `json:"recipes"`
 }
 
 type BasicRecipeInfo struct {
 	Name string
 }
 
-func GetSchedule(ctx context.Context, rDB db.Crudler[Recipe], db db.ScheduleStore, start, end db.Date) ([]Schedule, error) {
+func ListSchedules(ctx context.Context, rDB db.Crudler[Recipe], db db.ScheduleStore, start, end db.Date) ([]Schedule, error) {
 	scheds, err := db.List(ctx, start, end)
 	if err != nil {
 		return nil, err
@@ -35,6 +35,8 @@ func GetSchedule(ctx context.Context, rDB db.Crudler[Recipe], db db.ScheduleStor
 	return enrichedScheds, nil
 }
 
+// Given a schedule, it goes and fetchs the recipes the schedule contains
+// and inserts them into the schedule.
 func enrichSched(ctx context.Context, db db.Crudler[Recipe], sch db.Schedule) (Schedule, error) {
 	recipes, err := db.Read(ctx, sch.Recipes)
 	if err != nil {
@@ -52,6 +54,11 @@ func enrichSched(ctx context.Context, db db.Crudler[Recipe], sch db.Schedule) (S
 	}
 
 	return enrichedSched, nil
+}
+
+func AddSchedule(ctx context.Context, conn db.ScheduleStore, sch db.Schedule) error {
+	return conn.UpsertSchedule(ctx, sch)
+
 }
 
 // Returns the total list of ingredients required to cook all the dishes in the given time
