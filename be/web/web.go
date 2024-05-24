@@ -47,6 +47,8 @@ func Serve(dir string, port int, ready chan<- struct{}) error {
 	http.HandleFunc("GET /api/schedule/", wrap(getManySchedules))
 	http.HandleFunc("POST /api/schedule/", wrap(addSchedule))
 
+	http.HandleFunc("GET /api/shopping-list/", wrap(getShoppingList))
+
 	fmt.Printf("Serving directory '%s' at http://localhost:%d\n", dir, port)
 
 	l, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
@@ -73,7 +75,6 @@ func log(f httpHandler) httpHandler {
 		f(w, req)
 	}
 }
-
 
 func sendJSON(f func(*http.Request, State) (any, int, error), state State) httpHandler {
 	return func(w http.ResponseWriter, req *http.Request) {
